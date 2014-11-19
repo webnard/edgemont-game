@@ -1,4 +1,5 @@
 import pygame
+import random
 from player import Player
 from coin import Coin
 
@@ -20,17 +21,28 @@ pygame.key.set_repeat(1, fps/2)
 from random import randint
 coins = pygame.sprite.Group()
 
-for i in range(0,10):
+def addcoin():
 	coin = Coin()
 	coin.rect.x = randint(0, 500)
 	coin.rect.y = randint(0, 500)
 	coins.add(coin)
 
+for i in range(0,10):
+	addcoin()
+
 font = pygame.font.Font(None, 24) # second is size of font
+
+MAX_COINS = 30
 
 while not done:
 	screen.fill(bg_color)
 	hit = pygame.sprite.spritecollide(player, coins, True) # true removes coin
+
+	choices = [(True, 1), (False, 100)]
+	weighted = [val for val, cnt in choices for i in range(cnt)]
+
+	if random.choice(weighted) and len(coins.sprites())<MAX_COINS:
+		addcoin()
 
 	for c in coins.sprites():
 		c.float()
