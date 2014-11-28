@@ -38,10 +38,7 @@ while not done:
 	screen.fill(bg_color)
 	hit = pygame.sprite.spritecollide(player, coins, True) # true removes coin
 
-	choices = [(True, 1), (False, 100)]
-	weighted = [val for val, cnt in choices for i in range(cnt)]
-
-	if random.choice(weighted) and len(coins.sprites())<MAX_COINS:
+	if random.randint(0,100) is 95:
 		addcoin()
 
 	for c in coins.sprites():
